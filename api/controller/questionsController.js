@@ -7,6 +7,7 @@ exports.insert_questions = (req, res) => {
         questionTitle: req.body.questionTitle,
         options: req.body.options,
         questionType: req.body.questionType,
+        testNumber: req.body.testNumber,
         author: req.body.author,
         createdAt: present_date,
         section:req.body.section,

@@ -9,6 +9,7 @@ const questionsSchema=mongoose.Schema({
     author:{type:String,required:true},
     section:{type:String,required:true},
     questionUserType:{type:String,required:true},
+    testNumber:{type:Number,required:true},
     status:{type:Number,default:1}
 });
 

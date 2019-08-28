@@ -30,6 +30,8 @@ exports.user_controller = (req, res, next) => {
                     mobile: req.body.mobile,
                     userType: userType,
                     status: 1,
+                    paymentStatus: 0,
+                    countOfTestsGiven:0,
                     createdAt: present_date
                 });
                 user
@@ -56,7 +58,7 @@ exports.user_controller = (req, res, next) => {
 
 
 exports.get_user_details = (req, res, next) => {
-    UserModel.find({ status: 1 }, { status: 0, __v: 0 })
+    UserModel.find({ status: 1 }, { status: 0, __v: 0, createdAt: 0, paymentStatus: 0 })
         .exec()
         .then(docs => {
             if (docs.length > 0) return res.status(200).json(docs);
@@ -76,9 +78,9 @@ exports.get_user_details = (req, res, next) => {
 exports.get_user_by_userId = (req, res, next) => {
     var userId = mongoose.Types.ObjectId(req.query.userId);
 
-    UserModel.find({ _id: userId,status:1 })
+    UserModel.find({ _id: userId, status: 1 }, { status: 0, __v: 0, createdAt: 0, paymentStatus: 0 })
         .then(docs => {
-            
+
             const response = {
                 products: docs
             };

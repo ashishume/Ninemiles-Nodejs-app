@@ -7,6 +7,7 @@ const mongoose=require('mongoose');
 
 const userRoutes=require('./api/routes/user');
 const questionRoutes=require('./api/routes/questions');
+const contentsRoutes=require('./api/routes/contents');
 const defaultRoutes=require('./api/routes/default')
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
@@ -34,6 +35,7 @@ mongoose.connect(
 
 app.use('/',defaultRoutes)
 app.use('/user',userRoutes);
+app.use('/contents',contentsRoutes);
 app.use('/questions',questionRoutes);
 app.all('*', function(req, res) {
     throw new Error("Bad request")
