@@ -21,7 +21,7 @@ res.header('Access-Control-Allow-Origin', '*');
 });
 
 
-app.get('/favicon.ico', (req, res) => {return null});
+// app.get('/favicon.ico', (req, res) => {return null});
 
 
 mongoose.connect(
