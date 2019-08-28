@@ -31,7 +31,7 @@ exports.insert_questions = (req, res) => {
 
 exports.display_questions = (req, res) => {
     QuestionsModel
-        .find({status:1},{createdAt:0})
+        .find({status:1},{createdAt:0,status:0})
         .exec()
         .then(result => {
             if (result.length > 0) return res.status(200).json(result);
