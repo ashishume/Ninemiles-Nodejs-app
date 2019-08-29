@@ -5,12 +5,14 @@ const mongoose = require('mongoose');
 // 2 ==> General Student
 // 4 ==> Academic Student
 exports.user_controller = (req, res, next) => {
-    UserModel.find({ email: req.body.email })
+    UserModel.find({ email: req.body.email ,status:1},{status: 0, __v: 0, createdAt: 0, paymentStatus: 0 })
         .exec()
         .then(user => {
             if (user.length >= 1) {
-                return res.status(409).json({
-                    message: 'Email exists'
+                return res.status(200).json({
+                    message: 'Email exists',
+                    registrationStatus:1,
+                    userDetails:user[0]
                 });
             } else {
 
@@ -39,7 +41,8 @@ exports.user_controller = (req, res, next) => {
                     .then(result => {
                         return res.status(200).json({
                             message: 'User created',
-                            object: result
+                            userDetails: result[0],
+                            registrationStatus:0
                         });
                     })
                     .catch(err => {
@@ -64,7 +67,7 @@ exports.get_user_details = (req, res, next) => {
             if (docs.length > 0) return res.status(200).json(docs);
             else
                 return res.status(204).json({
-                    message: 'No entries Found'
+                    message: 'No entries Found',
                 });
         })
         .catch(error => {
@@ -75,16 +78,16 @@ exports.get_user_details = (req, res, next) => {
         });
 }
 
-exports.get_user_by_userId = (req, res, next) => {
-    var userId = mongoose.Types.ObjectId(req.query.userId);
+exports.get_user_by_email = (req, res, next) => {
+    // var userId = mongoose.Types.ObjectId(req.query.userId);
 
-    UserModel.find({ _id: userId, status: 1 }, { status: 0, __v: 0, createdAt: 0, paymentStatus: 0 })
+    UserModel.find({ email: req.query.email, status: 1 }, { status: 0, __v: 0, createdAt: 0 })
         .then(docs => {
 
             const response = {
-                products: docs
+                userDetails: docs[0]
             };
-            if (docs.length > 0) res.status(200).json(response.products);
+            if (docs.length > 0) res.status(200).json(response.userDetails);
             else
                 res.status(204).json({
                     message: 'No entries Found'
@@ -98,10 +101,10 @@ exports.get_user_by_userId = (req, res, next) => {
         });
 }
 
-exports.delete_user_by_userId = (req, res, next) => {
-    var userId = mongoose.Types.ObjectId(req.query.userId);
+exports.delete_user_by_email = (req, res, next) => {
+    // var userId = mongoose.Types.ObjectId(req.query.userId);
     UserModel.findOneAndUpdate(
-        { _id: userId },
+        { email:req.query.email },
         { status: 0 },
         { new: true }
     )
