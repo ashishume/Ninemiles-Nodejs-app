@@ -5,14 +5,14 @@ const mongoose = require('mongoose');
 // 2 ==> General Student
 // 4 ==> Academic Student
 exports.user_controller = (req, res, next) => {
-    UserModel.find({ email: req.body.email ,status:1},{status: 0, __v: 0, createdAt: 0, paymentStatus: 0 })
+    UserModel.find({ email: req.body.email, status: 1 }, { status: 0, __v: 0, createdAt: 0, paymentStatus: 0 })
         .exec()
         .then(user => {
             if (user.length >= 1) {
                 return res.status(200).json({
                     message: 'Email exists',
-                    registrationStatus:1,
-                    userDetails:user[0]
+                    registrationStatus: 1,
+                    userDetails: user[0]
                 });
             } else {
 
@@ -33,7 +33,6 @@ exports.user_controller = (req, res, next) => {
                     userType: userType,
                     status: 1,
                     paymentStatus: 0,
-                    countOfTestsGiven:0,
                     createdAt: present_date
                 });
                 user
@@ -42,7 +41,7 @@ exports.user_controller = (req, res, next) => {
                         return res.status(200).json({
                             message: 'User created',
                             userDetails: result[0],
-                            registrationStatus:0
+                            registrationStatus: 0
                         });
                     })
                     .catch(err => {
@@ -61,7 +60,7 @@ exports.user_controller = (req, res, next) => {
 
 
 exports.get_user_details = (req, res, next) => {
-    UserModel.find({ status: 1 }, { status: 0, __v: 0, createdAt: 0, paymentStatus: 0 })
+    UserModel.find({ status: 1 }, { status: 0, __v: 0 })
         .exec()
         .then(docs => {
             if (docs.length > 0) return res.status(200).json(docs);
@@ -104,7 +103,7 @@ exports.get_user_by_email = (req, res, next) => {
 exports.delete_user_by_email = (req, res, next) => {
     // var userId = mongoose.Types.ObjectId(req.query.userId);
     UserModel.findOneAndUpdate(
-        { email:req.query.email },
+        { email: req.query.email },
         { status: 0 },
         { new: true }
     )
@@ -123,6 +122,26 @@ exports.delete_user_by_email = (req, res, next) => {
         .catch(e => {
             res.status(400).send();
         });
-
-
+}
+exports.set_payment_status = (req, res, next) => {
+    UserModel.findOneAndUpdate(
+        { email: req.body.email, status: 1 },
+        { paymentStatus: req.body.paymentStatus },
+        { new: true }
+    )
+        .then(doc => {
+            if (!doc) {
+                res.status(500).json({
+                    message: 'User Does not exist',
+                    error: err
+                });
+            } else {
+                res.status(200).json({
+                    message: 'Payment Status Updated'
+                });
+            }
+        })
+        .catch(e => {
+            res.status(400).send();
+        });
 }

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 exports.display_tests = (req, res) => {
     TestModel
-        .find({ email:req.query.email,status: 1 }, { createdAt: 0, status: 0, __v: 0 })
+        .find({ email: req.query.email, status: 1 }, { createdAt: 0, status: 0, __v: 0 })
         .exec()
         .then(result => {
             if (result.length > 0) return res.status(200).json(result[0]);
@@ -29,10 +29,37 @@ exports.insert_tests = (req, res) => {
                     message: 'User exists',
                 });
             } else {
+                let tempArray = [];
+                for (let i = 1; i <= 32; i++) {
+                    if (i == 1 || i == 2) {
+                        tempArray.push(
+                            {
+                                testNumber: i,
+                                testAttemptStatus: false,
+                                testPricingStatus: false,
+                                listening: false,
+                                speaking: false,
+                                writing: false,
+                                reading: false
+                            }
+                        )
+                    } else {
+                        tempArray.push({
+                            testNumber: i,
+                            testAttemptStatus: false,
+                            testPricingStatus: true,
+                            listening: false,
+                            speaking: false,
+                            writing: false,
+                            reading: false
+                        }
+                        )
+                    }
+                }
                 const present_date = new Date();
                 const tests = new TestModel({
                     _id: new mongoose.Types.ObjectId(),
-                    testDetails: req.body.testDetails,
+                    testDetails: tempArray,
                     createdAt: present_date,
                     email: req.body.email,
                     status: 1
@@ -55,11 +82,14 @@ exports.insert_tests = (req, res) => {
             }
         })
 }
+
+
+//TO BE DONE :BY Ashish Debnath
 exports.update_tests = (req, res) => {
     TestModel
         .findOneAndUpdate(
             { email: req.body.email },
-            { $push: { testDetails: req.body.testDetails } },
+            { testDetails: req.body.testDetails },
             { new: true }
         )
         .then(result => {
@@ -81,3 +111,4 @@ exports.update_tests = (req, res) => {
             });
         });
 }
+        //TO BE DONE :BY Ashish Debnath

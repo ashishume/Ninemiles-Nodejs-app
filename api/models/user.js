@@ -9,7 +9,6 @@ const userSchema = mongoose.Schema({
     profileImageUrl: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     paymentStatus: { type: Boolean, default: 0 },
-    countOfTestsGiven:{type:Number,default:0},
     status: { type: Number, default: 1 }
 });
 

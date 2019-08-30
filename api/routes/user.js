@@ -13,6 +13,9 @@ router.get('/listUsers', userController.get_user_details);
 router.get('/', userController.get_user_by_email);
 
 //DELETE THE USER
-router.put('/deleteUser', userController.delete_user_by_email);
+router.delete('/deleteUser', userController.delete_user_by_email);
+
+//CHANGE PAYMENT STATUS
+router.put('/paymentStatus', userController.set_payment_status);
 
 module.exports = router;
