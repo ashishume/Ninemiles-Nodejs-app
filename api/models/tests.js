@@ -5,7 +5,6 @@ const testSchema = mongoose.Schema({
     testDetails: [
         {
             testNumber: { type: Number },
-            testAttemptStatus: { type: Boolean },
             testPricingStatus: { type: Boolean },
             listening: { type: Boolean },
             speaking: { type: Boolean },

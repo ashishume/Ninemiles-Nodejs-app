@@ -35,7 +35,6 @@ exports.insert_tests = (req, res) => {
                         tempArray.push(
                             {
                                 testNumber: i,
-                                testAttemptStatus: false,
                                 testPricingStatus: false,
                                 listening: false,
                                 speaking: false,
@@ -46,7 +45,6 @@ exports.insert_tests = (req, res) => {
                     } else {
                         tempArray.push({
                             testNumber: i,
-                            testAttemptStatus: false,
                             testPricingStatus: true,
                             listening: false,
                             speaking: false,
@@ -83,32 +81,27 @@ exports.insert_tests = (req, res) => {
         })
 }
 
-
-//TO BE DONE :BY Ashish Debnath
 exports.update_tests = (req, res) => {
-    TestModel
-        .findOneAndUpdate(
-            { email: req.body.email },
-            { testDetails: req.body.testDetails },
-            { new: true }
-        )
-        .then(result => {
-            if (!result) {
-                return res.status(404).json({
-                    message: 'User Does not exist',
-                    error: err
-                });
-            } else {
-                return res.status(200).json({
-                    message: 'Test Updated Successfully',
-                    object: result
-                });
-            }
-        })
-        .catch(err => {
+
+    TestModel.update({ email: req.body.email, "testDetails.testNumber": req.body.testNumber }, {
+        $set: { [`testDetails.$.${req.body.testStatusUpdate}`]: true }
+    }, { new: true }
+    ).then(data => {
+        if (!data) {
+            return res.status(404).json({
+                message: "No data found"
+            })
+        } else {
+            return res.status(200).json({
+                message: "Status updated"
+            })
+        }
+    })
+        .catch(error => {
             return res.status(500).json({
-                error: err
-            });
-        });
+                message: "Something went wrong",
+                error: error
+            })
+        })
+
 }
-        //TO BE DONE :BY Ashish Debnath

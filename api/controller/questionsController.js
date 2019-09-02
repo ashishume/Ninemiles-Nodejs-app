@@ -9,6 +9,7 @@ exports.insert_questions = (req, res) => {
         questionType: req.body.questionType,
         testNumber: req.body.testNumber,
         author: req.body.author,
+        sectionCategory:req.body.sectionCategory,
         createdAt: present_date,
         section:req.body.section,
         questionUserType:req.body.questionUserType,
