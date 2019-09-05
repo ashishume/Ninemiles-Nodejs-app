@@ -10,6 +10,7 @@ const questionsSchema=mongoose.Schema({
     section:{type:String,required:true},
     questionUserType:{type:String,required:true},
     testNumber:{type:Number,required:true},
+    optionsList:[{type:String}],
     sectionCategory:{type:String,required:true},
     status:{type:Number,default:1}
 });
