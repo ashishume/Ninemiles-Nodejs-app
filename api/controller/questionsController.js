@@ -8,12 +8,8 @@ exports.insert_questions = (req, res) => {
     if (req.body.questionType == 1) {
         questionType = "MCQ"
     } else if (req.body.questionType == 2) {
-        questionType = "Matching questions"
-    } else if (req.body.questionType == 3) {
-        questionType = "Short questions"
-    } else if (req.body.questionType == 4) {
         questionType = "Type in the blanks"
-    } else if (req.body.questionType == 5) {
+    } else if (req.body.questionType == 3) {
         questionType = "Select in the blanks"
     }
 
