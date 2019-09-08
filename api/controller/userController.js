@@ -145,3 +145,25 @@ exports.set_payment_status = (req, res, next) => {
             res.status(400).send();
         });
 }
+exports.update_user_type = (req, res, next) => {
+    UserModel.findOneAndUpdate(
+        { email: req.body.email, status: 1 },
+        { userType: req.body.userType },
+        { new: true }
+    )
+        .then(doc => {
+            if (!doc) {
+                res.status(500).json({
+                    message: 'User Does not exist',
+                    error: err
+                });
+            } else {
+                res.status(200).json({
+                    message: 'User Type Updated'
+                });
+            }
+        })
+        .catch(e => {
+            res.status(400).send();
+        });
+}

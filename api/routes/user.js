@@ -18,4 +18,7 @@ router.delete('/deleteUser', userController.delete_user_by_email);
 //CHANGE PAYMENT STATUS
 router.put('/paymentStatus', userController.set_payment_status);
 
+//CHANGE USER TYPE
+router.put('/updateUserType', userController.update_user_type);
+
 module.exports = router;
