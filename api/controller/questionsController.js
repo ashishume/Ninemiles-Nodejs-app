@@ -3,21 +3,11 @@ const mongoose = require('mongoose');
 exports.insert_questions = (req, res) => {
     const present_date = new Date();
 
-
-    var questionType;
-    if (req.body.questionType == 1) {
-        questionType = "MCQ"
-    } else if (req.body.questionType == 2) {
-        questionType = "Type in the blanks"
-    } else if (req.body.questionType == 3) {
-        questionType = "Select in the blanks"
-    }
-
     const questions = new QuestionsModel({
         _id: new mongoose.Types.ObjectId(),
         questionTitle: req.body.questionTitle,
         options: req.body.options,
-        questionType: questionType,
+        questionType: req.body.questionType,
         testNumber: req.body.testNumber,
         author: req.body.author,
         optionsList: req.body.optionsList,
@@ -79,9 +69,12 @@ exports.update_questions = (req, res) => {
                 section: req.body.section,
                 questionUserType: req.body.questionUserType,
 
-            })
+            },
+            { new: true })
         .exec()
         .then(result => {
+            console.log(result);
+
             if (result) {
                 return res.status(200).json({
                     message: "Question Updated Successfully"

@@ -6,7 +6,7 @@ const contentsSchema=mongoose.Schema({
     paragraphHeading:{type:String,required:true},
     createdAt: { type: Date, default: Date.now },
     author:{type:String,required:true},
-    section:{type:String,required:true},
+    section:{type:Number,required:true},
     testNumber:{type:Number,required:true},
     paragraphUserType:{type:String,required:true},
     status:{type:Number,default:1}
