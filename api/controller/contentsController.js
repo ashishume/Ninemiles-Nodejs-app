@@ -11,6 +11,7 @@ exports.insert_paragraph = (req, res) => {
         section: req.body.section,
         testNumber: req.body.testNumber,
         paragraphUserType: req.body.paragraphUserType,
+        paragraphSectionCategory: req.body.paragraphSectionCategory,
         status: 1
     });
 
@@ -60,7 +61,8 @@ exports.update_paragraph = (req, res) => {
             createdAt: present_date,
             section: req.body.section,
             testNumber: req.body.testNumber,
-            paragraphUserType: req.body.paragraphUserType
+            paragraphUserType: req.body.paragraphUserType,
+            paragraphSectionCategory: req.body.paragraphSectionCategory
         }
     )
         .exec()
@@ -106,3 +108,5 @@ exports.delete_paragraph = (req, res) => {
             });
         });
 }
+
+
