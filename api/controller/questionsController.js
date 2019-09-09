@@ -21,10 +21,13 @@ exports.insert_questions = (req, res) => {
     questions
         .save()
         .then(result => {
-            return res.status(200).json({
-                message: 'Question Added Successfully',
-                object: result
-            });
+            if (result) {
+
+                return res.status(200).json({
+                    message: 'Question Added Successfully',
+                    object: result
+                });
+            }
         })
         .catch(err => {
             return res.status(500).json({
@@ -67,8 +70,7 @@ exports.update_questions = (req, res) => {
                 sectionCategory: req.body.sectionCategory,
                 createdAt: present_date,
                 section: req.body.section,
-                questionUserType: req.body.questionUserType,
-
+                questionUserType: req.body.questionUserType
             },
             { new: true })
         .exec()
