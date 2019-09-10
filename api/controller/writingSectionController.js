@@ -1,6 +1,7 @@
 
 const mongoose = require('mongoose');
 const WritingAnswerModel = require('../models/writingSectionAnswer');
+const OnlineWritingAnswerModel = require('../models/onlineUpload');
 
 //WRITING SECTION
 exports.insert_writing_answer = (req, res) => {
@@ -14,7 +15,7 @@ exports.insert_writing_answer = (req, res) => {
         createdAt: present_date,
         testNumber: req.body.testNumber,
         userType: req.body.userType,
-        checkStatus: 0
+        checkStatus: 0,
     });
 
     writing
@@ -39,6 +40,61 @@ exports.insert_writing_answer = (req, res) => {
 exports.display_writing_answer = (req, res) => {
 
     WritingAnswerModel.find({}, { __v: 0 })
+        .exec()
+        .then(docs => {
+            if (docs.length > 0) return res.status(200).json(docs);
+            else
+                return res.status(204).json({
+                    message: 'No entries Found'
+                });
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({
+                error: err
+            });
+        });
+}
+
+
+
+
+
+//ONLINE WRITING SECTION
+exports.insert_online_writing_answer = (req, res) => {
+    const present_date = new Date();
+    const writing = new OnlineWritingAnswerModel({
+        _id: new mongoose.Types.ObjectId(),
+        onlineAnswer: req.body.onlineAnswer,
+        studentEmail: req.body.studentEmail,
+        studentName: req.body.studentName,
+        testNumber: req.body.testNumber,
+        userType: req.body.userType,
+        answerIsChecked: false,
+        createdAt: present_date,
+    });
+
+    writing
+        .save()
+        .then(result => {
+            if (result) {
+                return res.status(200).json({
+                    message: 'Answer submitted Successfully',
+                });
+            }
+        })
+        .catch(err => {
+            return res.status(500).json({
+                error: err
+            });
+        });
+}
+
+
+
+exports.display_online_writing_answer = (req, res) => {
+
+    OnlineWritingAnswerModel.find({}, { __v: 0 })
         .exec()
         .then(docs => {
             if (docs.length > 0) return res.status(200).json(docs);
