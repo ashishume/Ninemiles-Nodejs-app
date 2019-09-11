@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controller/userController');
-
+const mailController = require('../controller/mailController')
 
 //INSERT THE USER INTO DB
 router.post('/signup', userController.user_controller);
@@ -21,4 +21,6 @@ router.put('/paymentStatus', userController.set_payment_status);
 //CHANGE USER TYPE
 router.put('/updateUserType', userController.update_user_type);
 
+
+router.post('/sendEmail', mailController.send_mail)
 module.exports = router;
