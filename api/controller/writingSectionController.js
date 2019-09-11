@@ -60,7 +60,7 @@ exports.display_writing_answer = (req, res) => {
 
 
 
-//ONLINE WRITING SECTION
+//ONLINE UPLOAD WRITING SECTION
 exports.insert_online_writing_answer = (req, res) => {
     const present_date = new Date();
     const writing = new OnlineWritingAnswerModel({
@@ -71,16 +71,35 @@ exports.insert_online_writing_answer = (req, res) => {
         testNumber: req.body.testNumber,
         userType: req.body.userType,
         answerIsChecked: false,
+        marksScored: 0,
+        sheetNumber: req.body.sheetNumber,
         createdAt: present_date,
     });
-
-    writing
-        .save()
-        .then(result => {
-            if (result) {
-                return res.status(200).json({
-                    message: 'Answer submitted Successfully',
-                });
+    OnlineWritingAnswerModel.find({
+        testNumber: req.body.testNumber,
+        sheetNumber: req.body.sheetNumber
+    })
+        .exec()
+        .then(sheetData => {
+            if (sheetData.length >= 1) {
+                return res.status(409).json({
+                    message: "Sheet Number already exists"
+                })
+            } else {
+                writing
+                    .save()
+                    .then(result => {
+                        if (result) {
+                            return res.status(200).json({
+                                message: 'Answer submitted Successfully',
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        return res.status(500).json({
+                            error: err
+                        });
+                    });
             }
         })
         .catch(err => {
@@ -98,6 +117,38 @@ exports.display_online_writing_answer = (req, res) => {
         .exec()
         .then(docs => {
             if (docs.length > 0) return res.status(200).json(docs);
+            else
+                return res.status(204).json({
+                    message: 'No entries Found'
+                });
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({
+                error: err
+            });
+        });
+}
+
+exports.update_online_writing_answer = (req, res) => {
+
+    OnlineWritingAnswerModel.findOneAndUpdate(
+        {
+            studentEmail: req.body.email,
+            testNumber: req.body.testNumber,
+            sheetNumber: req.body.sheetNumber
+        },
+        {
+            onlineAnswer: req.body.checkedAnswer,
+            answerIsChecked: true,
+            marksScored: req.body.marksScored,
+        }
+    )
+        .exec()
+        .then(docs => {
+            if (docs) return res.status(200).json({
+                message: "Answer submitted successfully"
+            });
             else
                 return res.status(204).json({
                     message: 'No entries Found'

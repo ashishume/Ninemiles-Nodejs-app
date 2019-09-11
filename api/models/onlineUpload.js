@@ -8,6 +8,8 @@ const onlineWritingSchema = mongoose.Schema({
     testNumber: { type: Number, required: true },
     userType: { type: String, required: true },
     answerIsChecked: { type: Boolean, default: false },
+    marksScored:{type:Number},
+    sheetNumber:{type:Number},
     createdAt: { type: Date, default: Date.now },
 });
 
