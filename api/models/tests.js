@@ -9,7 +9,8 @@ const testSchema = mongoose.Schema({
             listening: { type: Boolean },
             speaking: { type: Boolean },
             writing: { type: Boolean },
-            reading: { type: Boolean }
+            reading: { type: Boolean },
+            onlineWriting: { type: Boolean }
         }
     ],
     email: { type: String, unique: true },

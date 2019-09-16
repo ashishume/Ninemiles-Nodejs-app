@@ -9,6 +9,7 @@ const userRoutes = require('./api/routes/user');
 const questionRoutes = require('./api/routes/questions');
 const testsRoutes = require('./api/routes/tests');
 const contentsRoutes = require('./api/routes/contents');
+const marksSheetRoutes = require('./api/routes/marksSheet');
 const defaultRoutes = require('./api/routes/default')
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,6 +40,7 @@ app.use('/user', userRoutes);
 app.use('/tests', testsRoutes);
 app.use('/contents', contentsRoutes);
 app.use('/questions', questionRoutes);
+app.use('/marks', marksSheetRoutes);
 app.all('*', function (req, res) {
     throw new Error("Bad request")
 })

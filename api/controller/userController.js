@@ -16,13 +16,7 @@ exports.user_controller = (req, res, next) => {
                 });
             } else {
 
-                var userType;
-                if (req.body.userType === 1)
-                    userType = "Teacher";
-                if (req.body.userType === 2)
-                    userType = "Academic Student";
-                if (req.body.userType === 3)
-                    userType = "General Student";
+
                 const present_date = new Date();
                 const user = new UserModel({
                     _id: new mongoose.Types.ObjectId(),
@@ -30,7 +24,7 @@ exports.user_controller = (req, res, next) => {
                     email: req.body.email,
                     profileImageUrl: req.body.profileImageUrl,
                     mobile: req.body.mobile,
-                    userType: userType,
+                    userType: "Student",
                     status: 1,
                     paymentStatus: 0,
                     createdAt: present_date

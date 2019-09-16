@@ -39,7 +39,8 @@ exports.insert_tests = (req, res) => {
                                 listening: false,
                                 speaking: false,
                                 writing: false,
-                                reading: false
+                                reading: false,
+                                onlineWriting:false
                             }
                         )
                     } else {
@@ -49,7 +50,8 @@ exports.insert_tests = (req, res) => {
                             listening: false,
                             speaking: false,
                             writing: false,
-                            reading: false
+                            reading: false,
+                            onlineWriting:false
                         }
                         )
                     }
