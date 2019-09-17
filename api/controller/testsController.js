@@ -40,7 +40,7 @@ exports.insert_tests = (req, res) => {
                                 speaking: false,
                                 writing: false,
                                 reading: false,
-                                onlineWriting:false
+                                onlineWriting: false
                             }
                         )
                     } else {
@@ -51,7 +51,7 @@ exports.insert_tests = (req, res) => {
                             speaking: false,
                             writing: false,
                             reading: false,
-                            onlineWriting:false
+                            onlineWriting: false
                         }
                         )
                     }
@@ -87,6 +87,30 @@ exports.update_tests = (req, res) => {
 
     TestModel.update({ email: req.body.email, "testDetails.testNumber": req.body.testNumber }, {
         $set: { [`testDetails.$.${req.body.testStatusUpdate}`]: true }
+    }, { new: true }
+    ).then(data => {
+        if (!data) {
+            return res.status(404).json({
+                message: "No data found"
+            })
+        } else {
+            return res.status(200).json({
+                message: "Status updated"
+            })
+        }
+    })
+        .catch(error => {
+            return res.status(500).json({
+                message: "Something went wrong",
+                error: error
+            })
+        })
+
+}
+exports.change_test_status = (req, res) => {
+
+    TestModel.update({ email: req.body.email, "testDetails.testNumber": req.body.testNumber }, {
+        $set: { [`testDetails.$.${req.body.testStatusUpdate}`]: false }
     }, { new: true }
     ).then(data => {
         if (!data) {
