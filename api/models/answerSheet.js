@@ -7,7 +7,7 @@ const answerSchema = mongoose.Schema({
     section: { type: String, required: true },
     marksBand: { type: Number, required: true },
     countOfCorrectAnswers: { type: Number, required: true },
-    userType: { type: String, required: true },
+    userType: { type: String },
     createdAt: { type: Date, default: Date.now },
 });
 

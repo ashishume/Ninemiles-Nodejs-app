@@ -1,4 +1,5 @@
 const MarkSheetModel = require('../models/answerSheet');
+const UploadWritingSheet = require('../models/onlineUpload');
 const mongoose = require('mongoose');
 exports.insert_marksSheet = (req, res) => {
     const present_date = new Date();
@@ -33,10 +34,52 @@ exports.insert_marksSheet = (req, res) => {
 
 exports.display_marks = (req, res) => {
     MarkSheetModel
-        .find({email:req.query.email})
+        .find({ email: req.query.email })
         .exec()
         .then(result => {
             if (result.length > 0) return res.status(200).json(result);
+            else
+                return res.status(204).json({
+                    message: 'No marks found'
+                });
+        })
+        .catch(err => {
+            return res.status(500).json({
+                error: err
+            });
+        });
+}
+
+exports.average_marks = (req, res) => {
+    let marksBandArray = []
+    MarkSheetModel
+        .find({ email: req.query.email })
+        .exec()
+        .then(result => {
+            var count = 0;
+            let marksArray = [];
+            for (let test = 1; test <= 32; test++) {
+                for (let j = 0; j < result.length; j++) {
+                    if (result[j].testNumber == test) {
+                        count++;
+                        marksArray.push(result[j].marksBand);
+                    }
+                }
+                if (count == 5) {
+                    var sum = 0
+                    marksArray.forEach(value => {
+                        sum += value;
+                    })
+                    var avg = sum / 4;
+                    console.log(marksArray);
+                    marksBandArray.push({ testNumber: test, average: avg })
+                    marksArray = []
+                    count = 0
+                }
+            }
+
+
+            if (result.length > 0) return res.status(200).json(marksBandArray);
             else
                 return res.status(204).json({
                     message: 'No marks found'
