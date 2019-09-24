@@ -12,6 +12,7 @@ const contentsRoutes = require('./api/routes/contents');
 const marksSheetRoutes = require('./api/routes/marksSheet');
 const defaultRoutes = require('./api/routes/default')
 const issuesRoutes = require('./api/routes/issues')
+const paymentRoutes = require('./api/routes/payment')
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -43,6 +44,7 @@ app.use('/contents', contentsRoutes);
 app.use('/questions', questionRoutes);
 app.use('/marks', marksSheetRoutes);
 app.use('/issue', issuesRoutes);
+app.use('/payment', paymentRoutes);
 app.all('*', function (req, res) {
     throw new Error("Bad request")
 })

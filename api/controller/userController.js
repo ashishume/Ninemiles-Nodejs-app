@@ -93,6 +93,24 @@ exports.get_user_by_email = (req, res, next) => {
             });
         });
 }
+exports.get_user_by_id = (req, res, next) => {
+    var userId = mongoose.Types.ObjectId(req.query.userId);
+
+    UserModel.find({ _id: userId, status: 1 }, { __v: 0, createdAt: 0 })
+        .then(docs => {
+            if (docs.length > 0) res.status(200).json(docs);
+            else
+                res.status(204).json({
+                    message: 'No entries Found'
+                });
+        })
+        .catch(error => {
+            console.log(error);
+            return res.status(500).json({
+                error: err
+            });
+        });
+}
 
 exports.delete_user_by_email = (req, res, next) => {
     // var userId = mongoose.Types.ObjectId(req.query.userId);

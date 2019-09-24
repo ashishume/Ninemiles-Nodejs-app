@@ -71,7 +71,26 @@ exports.average_marks = (req, res) => {
                         sum += value;
                     })
                     var avg = sum / 4;
-                    console.log(marksArray);
+                    console.log("original", avg);
+
+                    var roundValue = Math.floor(avg);
+                    var value1 = roundValue + 0.0;
+                    var value2 = roundValue + 0.24;
+                    var value3 = roundValue + 0.25;
+                    var value4 = roundValue + 0.74;
+                    var value5 = roundValue + 0.75;
+                    var value6 = roundValue + 1.0;
+
+                    var finalValue1 = roundValue + 0.0
+                    var finalValue2 = roundValue + 0.5
+                    var finalValue3 = roundValue + 1.0
+                    if (avg > value1 && avg < value2)
+                        avg = finalValue1;
+                    if (avg > value3 && avg < value4)
+                        avg = finalValue2;
+                    if (avg > value5 && avg < value6)
+                        avg = finalValue3;
+
                     marksBandArray.push({ testNumber: test, average: avg })
                     marksArray = []
                     count = 0

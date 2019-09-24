@@ -9,8 +9,11 @@ router.post('/signup', userController.user_controller);
 //FETCH THE DETAILS OF ALL USER
 router.get('/listUsers', userController.get_user_details);
 
-//FETCH THE DETAILS OF USER BASED ON USER ID
+//FETCH THE DETAILS OF USER BASED ON EMAIL
 router.get('/', userController.get_user_by_email);
+
+//FETCH THE DETAILS OF USER BASED ON USER ID
+router.get('/userId', userController.get_user_by_id);
 
 //DELETE THE USER
 router.delete('/deleteUser', userController.delete_user_by_email);
