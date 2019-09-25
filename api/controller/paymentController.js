@@ -1,7 +1,4 @@
 var request = require('request');
-// const paymentModel = require('../models/payment')
-// const mongoose = require('mongoose');
-
 
 
 exports.payment = (req, res) => {

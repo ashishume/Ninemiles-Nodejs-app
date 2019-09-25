@@ -1,6 +1,6 @@
 const TestModel = require('../models/tests');
 const mongoose = require('mongoose');
-
+const AnswerSheetModel = require('./../models/answerSheet')
 
 exports.display_tests = (req, res) => {
     TestModel
@@ -113,6 +113,18 @@ exports.change_test_status = (req, res) => {
         $set: { [`testDetails.$.${req.body.testStatusUpdate}`]: false }
     }, { new: true }
     ).then(data => {
+
+        AnswerSheetModel.remove({
+            email: req.body.email,
+            testNumber: req.body.testNumber,
+            section: req.body.testStatusUpdate
+        })
+            .exec()
+            .then(deleteData => {
+                console.log(deleteData);
+
+            })
+
         if (!data) {
             return res.status(404).json({
                 message: "No data found"
