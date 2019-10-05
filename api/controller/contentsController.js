@@ -33,7 +33,12 @@ exports.insert_paragraph = (req, res) => {
 
 exports.display_paragraph = (req, res) => {
 
-    ParagraphModel.find({ status: 1 }, { status: 0, __v: 0, createdAt: 0 })
+    ParagraphModel.find({
+        status: 1,
+        paragraphUserType:req.query.paragraphUserType,
+        testNumber:req.query.testNumber,
+        paragraphSectionCategory:req.query.paragraphSectionCategory
+    }, { status: 0, __v: 0, createdAt: 0 })
         .exec()
         .then(docs => {
             if (docs.length > 0) return res.status(200).json(docs);

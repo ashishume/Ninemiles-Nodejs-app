@@ -39,7 +39,13 @@ exports.insert_questions = (req, res) => {
 
 exports.display_questions = (req, res) => {
     QuestionsModel
-        .find({ status: 1 }, { createdAt: 0, status: 0 }).sort({ "questionNumber": 1 })
+        .find({
+            status: 1,
+            questionUserType: req.query.userType,
+            sectionCategory: req.query.sectionCategory,
+            testNumber: req.query.testNumber
+
+        }, { createdAt: 0, status: 0 }).sort({ "questionNumber": 1 })
         .exec()
         .then(result => {
             if (result.length > 0) return res.status(200).json(result);
