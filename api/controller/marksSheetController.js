@@ -65,7 +65,7 @@ exports.average_marks = (req, res) => {
                         marksArray.push(result[j].marksBand);
                     }
                 }
-                if (count == 5) {
+                if (count == 4) {
                     var sum = 0
                     marksArray.forEach(value => {
                         sum += value;
