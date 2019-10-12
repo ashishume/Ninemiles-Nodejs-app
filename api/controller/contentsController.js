@@ -48,7 +48,6 @@ exports.display_paragraph = (req, res) => {
                 });
         })
         .catch(error => {
-            console.log(error);
             res.status(500).json({
                 error: err
             });
@@ -81,7 +80,6 @@ exports.update_paragraph = (req, res) => {
                 });
         })
         .catch(error => {
-            console.log(error);
             res.status(500).json({
                 error: err
             });
@@ -107,7 +105,6 @@ exports.delete_paragraph = (req, res) => {
                 });
         })
         .catch(error => {
-            console.log(error);
             res.status(500).json({
                 error: err
             });

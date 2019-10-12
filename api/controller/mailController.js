@@ -21,6 +21,7 @@ exports.send_mail = (req, res) => {
 
 
     transporter.sendMail(mailOptions, function (err, info) {
+
         if (err) {
             return res.status(500).json({
                 message: "Something went wrong"

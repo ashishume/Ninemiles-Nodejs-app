@@ -121,8 +121,6 @@ exports.change_test_status = (req, res) => {
         })
             .exec()
             .then(deleteData => {
-                console.log(deleteData);
-
             })
 
         if (!data) {

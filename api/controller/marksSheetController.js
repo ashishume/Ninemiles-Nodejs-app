@@ -70,10 +70,11 @@ exports.average_marks = (req, res) => {
                     marksArray.forEach(value => {
                         sum += value;
                     })
+
                     var avg = sum / 4;
-                    console.log("original", avg);
 
                     var roundValue = Math.floor(avg);
+
                     var value1 = roundValue + 0.0;
                     var value2 = roundValue + 0.24;
                     var value3 = roundValue + 0.25;
@@ -84,11 +85,11 @@ exports.average_marks = (req, res) => {
                     var finalValue1 = roundValue + 0.0
                     var finalValue2 = roundValue + 0.5
                     var finalValue3 = roundValue + 1.0
-                    if (avg > value1 && avg < value2)
+                    if (avg >= value1 && avg <= value2)
                         avg = finalValue1;
-                    if (avg > value3 && avg < value4)
+                    if (avg >= value3 && avg <= value4)
                         avg = finalValue2;
-                    if (avg > value5 && avg < value6)
+                    if (avg >= value5 && avg <= value6)
                         avg = finalValue3;
 
                     marksBandArray.push({ testNumber: test, average: avg })

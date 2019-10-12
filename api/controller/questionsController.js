@@ -49,10 +49,11 @@ exports.display_questions = (req, res) => {
         .exec()
         .then(result => {
             if (result.length > 0) return res.status(200).json(result);
-            else
+            else {
                 return res.status(204).json({
                     message: 'No questions found'
                 });
+            }
         })
         .catch(err => {
             return res.status(500).json({
@@ -83,7 +84,6 @@ exports.update_questions = (req, res) => {
             { new: true })
         .exec()
         .then(result => {
-            console.log(result);
 
             if (result) {
                 return res.status(200).json({

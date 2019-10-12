@@ -64,7 +64,6 @@ exports.get_user_details = (req, res, next) => {
                 });
         })
         .catch(error => {
-            console.log(error);
             res.status(500).json({
                 error: err
             });
@@ -87,7 +86,6 @@ exports.get_user_by_email = (req, res, next) => {
                 });
         })
         .catch(error => {
-            console.log(error);
             return res.status(500).json({
                 error: err
             });
@@ -105,7 +103,6 @@ exports.get_user_by_id = (req, res, next) => {
                 });
         })
         .catch(error => {
-            console.log(error);
             return res.status(500).json({
                 error: err
             });

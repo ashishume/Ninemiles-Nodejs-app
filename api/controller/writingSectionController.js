@@ -49,7 +49,6 @@ exports.display_writing_answer = (req, res) => {
                 });
         })
         .catch(error => {
-            console.log(error);
             res.status(500).json({
                 error: err
             });
@@ -123,7 +122,6 @@ exports.display_online_writing_answer = (req, res) => {
                 });
         })
         .catch(error => {
-            console.log(error);
             res.status(500).json({
                 error: err
             });
@@ -155,7 +153,6 @@ exports.update_online_writing_answer = (req, res) => {
                 });
         })
         .catch(error => {
-            console.log(error);
             res.status(500).json({
                 error: err
             });
