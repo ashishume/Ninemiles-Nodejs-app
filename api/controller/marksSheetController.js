@@ -50,6 +50,24 @@ exports.display_marks = (req, res) => {
         });
 }
 
+exports.display_section_marks = (req, res) => {
+    MarkSheetModel
+        .find({ email: req.query.email, section: req.query.section })
+        .exec()
+        .then(result => {
+            if (result.length > 0) return res.status(200).json(result);
+            else
+                return res.status(204).json({
+                    message: 'No marks found'
+                });
+        })
+        .catch(err => {
+            return res.status(500).json({
+                error: err
+            });
+        });
+}
+
 exports.average_marks = (req, res) => {
     let marksBandArray = []
     MarkSheetModel
