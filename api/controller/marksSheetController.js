@@ -1,5 +1,4 @@
 const MarkSheetModel = require('../models/answerSheet');
-const UploadWritingSheet = require('../models/onlineUpload');
 const mongoose = require('mongoose');
 exports.insert_marksSheet = (req, res) => {
     const present_date = new Date();

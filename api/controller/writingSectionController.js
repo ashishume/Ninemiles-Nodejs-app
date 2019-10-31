@@ -35,8 +35,6 @@ exports.insert_writing_answer = (req, res) => {
 }
 
 
-
-
 exports.display_writing_answer = (req, res) => {
 
     WritingAnswerModel.find({}, { __v: 0 })
@@ -50,13 +48,10 @@ exports.display_writing_answer = (req, res) => {
         })
         .catch(error => {
             res.status(500).json({
-                error: err
+                error: error
             });
         });
 }
-
-
-
 
 
 //ONLINE UPLOAD WRITING SECTION
@@ -65,6 +60,7 @@ exports.insert_online_writing_answer = (req, res) => {
     const writing = new OnlineWritingAnswerModel({
         _id: new mongoose.Types.ObjectId(),
         onlineAnswer: req.body.onlineAnswer,
+        question: req.body.question,
         studentEmail: req.body.studentEmail,
         studentName: req.body.studentName,
         testNumber: req.body.testNumber,
