@@ -31,7 +31,7 @@ app.use((req, res, next) => {    //CORS
 
 mongoose.connect(
     "mongodb+srv://ninemilesmocks:Ninemiles1@@ielts-company-a4v0x.mongodb.net/ninemiles-database?retryWrites=true&w=majority",
-    { useNewUrlParser: true }
+    { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
 
