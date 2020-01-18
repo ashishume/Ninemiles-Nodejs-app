@@ -23,8 +23,14 @@ exports.payment = (req, res) => {
     let url = BASE_URL + 'order/create';
 
     request.post({ url: url, formData: form }, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
+
+        if (response.statusCode == 200) {
             res.status(201).json(JSON.parse(body))
+        }
+        if (response.statusCode == 400) {
+            res.status(400).json({
+                message: "You have already made the payment"
+            })
         }
     })
 }
